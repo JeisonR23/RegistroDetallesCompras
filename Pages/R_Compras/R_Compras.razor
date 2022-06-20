@@ -1,0 +1,149 @@
+@page "/R_Compras"
+@page "/R_Compras/{ProductoId:int}"
+
+@inject ComprasBLL comprasBLL;
+
+<EditForm Model="producto" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator />
+
+  <div class="form-row">
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label>CompraId</label>
+            <div class="input-group">
+                <InputNumber style="display: inline-block;" @bind-Value="producto.ProductoId"
+                    class="form-control col-4" />
+                <button type="button" class="btn btn-primary input-group-text  " style="margin-right: 100px;" @onclick="Buscar"><span
+                        class="oi oi-magnifying-glass">Buscar</span></button>
+            </div>
+
+        </div>
+        <div class="col-md-6 mb-3">
+            <label>Fecha</label>
+            <InputDate @bind-Value="Fecha" class="form-control"></InputDate>
+        </div>
+    </div>
+    </div>
+
+   <div  style="border: 2px solid green; margin: 3px;  margin-righ: 3px;"  >
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <label>ProductoId</label>
+            <div class="input-group">
+                <InputNumber @bind-Value="producto.ProductoId" class="form-control"></InputNumber>
+                    <button type="button" class="btn btn-primary input-group-text" @onclick="Buscar"><span
+                     class="oi oi-magnifying-glass">Buscar</span></button>
+            </div>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label >Descripcion</label>
+            <InputText @bind-Value="producto.Descripcion" class="form-control" placeholder="Descripcion" required></InputText>
+        </div>
+
+        <div class="col-md-3 mb-3">
+            <label >Costo</label>
+           <InputNumber @bind-Value="producto.Costo" class="form-control"></InputNumber>
+        </div>
+
+          <div class="col-md-2 mb-3">
+            <label>Cantidad</label>
+           <InputNumber @bind-Value="producto.Cantidad" class="form-control"></InputNumber>
+        </div>
+        
+      <div class="col-md-1 mb-3">
+            <br>
+            <button type="button" class="btn btn-primary input-group-text  form-control" >
+             <span class="oi oi-plus" @onclick="Guardar" ></span>
+           </button>
+        </div>
+    </div>
+    </div>
+    <br><hr>
+     <div>
+      <table class="table table-bordered table-light">
+                        <thead class="thead">
+                            <tr class="table">
+                                <th>ProductoId</th>
+                                <th>Descripcion</th>
+                                <th>Costo</th>
+                                <th>Cantidad</th>
+                                <th>Importe</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in producto.comprasDetalles)
+                            {
+                                <tr>
+                                    <td>@item.ProductoId</td>
+                                    <td>@item.Descripcion</td>
+                                    <td>@item.Costo</td>
+                                    <td>@item.Cantidad</td>
+                                     <td>@item.Importe</td>
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                 </div>
+                  <hr><br>
+
+             <div style="float: right;" class="col-md-3 mb-3">
+             <label >Total</label>
+             <input type="text">
+        </div>
+                <hr> <br>
+
+
+            <div class="card-footer">
+                <div class="form-group text-center" display: inline-block>
+                    <button type="button" style="margin: 5px;" class="btn btn-lg btn-primary"
+                        @onclick="Nuevo">Nuevo</button>
+                    <button type="submit" style="margin: 5px;" class="btn btn-lg btn-success"
+                        @onclick="Guardar">Guardar</button>
+                    <button type="button" style="margin: 5px;" class="btn btn-lg btn-danger"
+                        @onclick="Eliminar">Eliminar</button>
+                </div>
+            </div>
+
+</EditForm>
+
+@code
+{
+    [Parameter]
+
+    public int ProductoId { get; set; }
+    public DateOnly Fecha{get; set;}
+    public int Compras { get; set; }
+    public Productos producto { get; set; } = new Productos();
+    public ComprasDetalles comprasDetalles {get; set;} = new ComprasDetalles();
+
+     protected override void OnInitialized()
+    {
+        producto.ProductoId = ProductoId;
+        Buscar();
+    }
+      private void Nuevo()
+    {
+        producto = new Productos();
+    }
+
+    public void Buscar()
+    {
+
+
+    }
+
+     public void Guardar()
+    {
+      
+          
+    }
+
+      public void Eliminar()
+    {
+      
+          
+    }
+
+}
